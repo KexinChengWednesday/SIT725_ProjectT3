@@ -4,7 +4,7 @@ const PRODUCTS = [
     name: "Fashion Dress",
     price: 299.99,
     image: "https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?...",
-    categoryId: "clothing_001",
+    categoryId: "clothing",
     fullDescription:
       "This elegant summer dress combines style and comfort perfectly. Made from premium breathable fabric, it features a flattering silhouette that suits various body types. Perfect for casual outings, garden parties, or beach walks.",
     specifications: [
@@ -23,7 +23,7 @@ const PRODUCTS = [
     name: "Wireless Earbuds",
     price: 599.99,
     image: "https://images.unsplash.com/photo-1717295248230-93ea71f48f92?...",
-    categoryId: "electronics_001",
+    categoryId: "electronics",
     fullDescription:
       "Experience premium audio quality with our wireless earbuds. Featuring advanced noise cancellation technology and crystal-clear sound reproduction. The ergonomic design ensures a comfortable fit for extended wear.",
     specifications: [
@@ -43,7 +43,7 @@ const PRODUCTS = [
     name: "Decorative Vase",
     price: 159.99,
     image: "https://images.unsplash.com/photo-1616046229478-9901c5536a45?...",
-    categoryId: "home_001",
+    categoryId: "home",
     fullDescription:
       "Add a touch of elegance to your home with this modern minimalist vase. Crafted from high-quality ceramic with a smooth glazed finish. The unique shape and neutral color palette make it versatile enough to complement any interior design style.",
     specifications: [
@@ -63,7 +63,7 @@ const PRODUCTS = [
     name: "Sports Shoes",
     price: 499.99,
     image: "https://images.unsplash.com/photo-1602211844066-d3bb556e983b?...",
-    categoryId: "sports_001",
+    categoryId: "sports",
     fullDescription:
       "Engineered for peak performance, these professional sports shoes feature advanced cushioning technology and superior grip. The breathable mesh upper keeps your feet cool during intense workouts.",
     specifications: [
@@ -83,7 +83,7 @@ const PRODUCTS = [
     name: "Premium Books",
     price: 89.99,
     image: "https://images.unsplash.com/photo-1580699228119-7be487b3137f?...",
-    categoryId: "books_001",
+    categoryId: "books",
     fullDescription:
       "A timeless collection in premium hardcover format. These bestselling books feature beautiful cover designs and high-quality paper that enhances the reading experience. Perfect for collectors and book lovers.",
     specifications: [
@@ -103,7 +103,7 @@ const PRODUCTS = [
     name: "Skincare Set",
     price: 399.99,
     image: "https://images.unsplash.com/photo-1602260395251-0fe691861b56?...",
-    categoryId: "beauty_001",
+    categoryId: "beauty",
     fullDescription:
       "Transform your skincare routine with this comprehensive set. Formulated with natural ingredients including hyaluronic acid, vitamin C, and botanical extracts. Each product is dermatologist-tested and suitable for all skin types.",
     specifications: [

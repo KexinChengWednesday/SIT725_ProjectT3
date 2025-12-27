@@ -45,7 +45,7 @@ const productSchema = new mongoose.Schema(
 
     categoryId: {
       type: String,
-      ref: "Product-category",
+      ref: "ProductCategory",
       required: true,
       validate: {
         validator: async function (value) {
@@ -88,17 +88,7 @@ const productSchema = new mongoose.Schema(
     isActive: {
       type: Boolean,
       default: true,
-    },
-
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-
-    updatedAt: {
-      type: Date,
-      default: Date.now,
-    },
+    }
   },
   {
     collection: "products",

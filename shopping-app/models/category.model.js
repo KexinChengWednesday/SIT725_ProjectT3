@@ -60,10 +60,10 @@ const faqCategorySchema = new mongoose.Schema(
 );
 
 // ==================== CREATE MODELS ====================
-const ProductCategory = mongoose.model(
+const productCategoryModel = mongoose.model(
   "ProductCategory",
   productCategorySchema
 );
-const FQAsCategory = mongoose.model("FQAsCategory", faqCategorySchema);
+const faqsCategoryModel = mongoose.model("FQAsCategory", faqCategorySchema);
 // ==================== EXPORT ====================
-module.exports = { ProductCategory, FQAsCategory };
+module.exports = { productCategoryModel, faqsCategoryModel };

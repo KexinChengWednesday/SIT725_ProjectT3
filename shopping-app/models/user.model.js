@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      minlength: [8, "Password must be at least 8 characters"],
+      minlength: [1, "Password must be at least 1 characters"],
     },
     dob: {
       type: Date,
@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema(
       validate: {
         validator: function (value) {
           const age = new Date().getFullYear() - value.getFullYear();
-          return age >= 18;
+          return age >= 16;
         },
         message: "You must be at least 16 years old",
       },
@@ -53,7 +53,7 @@ const userSchema = new mongoose.Schema(
       validate: {
               validator: async function (value) {
                 const Role = mongoose.model("Roles");
-                const role = await Roles.findOne({ role_id: value });
+                const role = await Role.findOne({ role_id: value });
                 return role !== null;
               },
               message: "Invalid category ID",

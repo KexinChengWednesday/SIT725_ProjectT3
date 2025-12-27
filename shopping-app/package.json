@@ -23,7 +23,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "seeddb": "node config/seed.js"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

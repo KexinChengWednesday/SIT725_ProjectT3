@@ -36,7 +36,7 @@ const reviewSchema = new mongoose.Schema(
       default: Date.now,
     },
     rating: {
-      type: number,
+      type: Number,
       required: true,
       min: 1,
       max: 5,
