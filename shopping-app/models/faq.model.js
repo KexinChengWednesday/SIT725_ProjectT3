@@ -32,4 +32,5 @@ const faqSchema = new mongoose.Schema(
   { collection: "faq-questions", timestamps: true, strict: "throw" }
 );
 
-module.exports = new mongoose.model("FAQsQuestion", faqSchema);
+module.exports = mongoose.model("FAQsQuestion", faqSchema);
+
