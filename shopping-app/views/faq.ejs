@@ -1,0 +1,47 @@
+<%- include("components/header", { title: "FAQ" }) %>
+
+<link rel="stylesheet" href="/css/faq.css" />
+
+<div class="page">
+  <a href="/" class="back-btn">
+    <span class="back-icon">←</span>
+    <span>Back to Home</span>
+  </a>
+
+  <h1 class="title">Frequently Asked Questions</h1>
+
+  <div class="search-wrapper">
+    <input id="faqSearch" type="text" placeholder="Search FAQs..." />
+  </div>
+
+  <div id="faqContainer" class="faq-container"></div>
+
+  <section class="feedback">
+    <h2 class="feedback-title">Send us feedback</h2>
+    <p class="feedback-subtitle">
+      Didn’t find what you need? Leave a message and we’ll improve the FAQ.
+    </p>
+
+    <form id="faqFeedbackForm" class="feedback-form">
+      <div class="row">
+        <input id="fbName" type="text" placeholder="Your name (optional)" />
+        <input id="fbEmail" type="email" placeholder="Email (optional)" />
+      </div>
+
+      <textarea
+        id="fbMessage"
+        placeholder="Write your feedback..."
+        required
+      ></textarea>
+
+      <div class="actions">
+        <button type="submit" class="btn-primary">Submit</button>
+        <span id="fbStatus" class="fb-status"></span>
+      </div>
+    </form>
+  </section>
+</div>
+
+<script src="/js/faq.js"></script>
+
+<%- include("components/footer") %>

@@ -7,6 +7,11 @@ const router = express.Router();
 const faqController = require("../controllers/faq.controller");
 const faqFeedbackController = require("../controllers/faqFeedback.controller");
 
+// ✅ NEW: FAQ page router (separate file for FAQ page routes only)
+const faqPageRouter = require("./faq.router");
+// ✅ NEW: mount it before the old "/faq" route so it takes precedence
+router.use("/faq", faqPageRouter);
+
 // ========= Pages =========
 
 // FAQ page

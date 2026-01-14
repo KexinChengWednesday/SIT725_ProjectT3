@@ -229,67 +229,7 @@ const FAQ_CATEGORIES = [
   },
 ];
 
-const FAQS = [
-  {
-    faq_id: 1,
-    question: "How do I place an order?",
-    answer:
-      'Browse our product catalog and select items you wish to purchase. Click the "Add to Cart" button for each item. Once you have finished shopping, navigate to your shopping cart and review your items. Click "Proceed to Checkout" to enter your shipping and billing information. Select your preferred payment method and complete the transaction. You will receive an order confirmation email with your order number and tracking details.',
-    category: "general",
-  },
-  {
-    faq_id: 2,
-    question: "What payment methods do you accept?",
-    answer:
-      "We accept multiple payment methods for your convenience including Alipay, WeChat Pay, UnionPay, Visa, Mastercard, and American Express. You can also pay via bank transfer for orders over a certain amount. All payments are processed securely through our encrypted payment gateway. Choose the most convenient payment option at checkout. For security reasons, we do not store your full credit card information on our servers.",
-    category: "payment",
-  },
-  {
-    faq_id: 3,
-    question: "How long does delivery take?",
-    answer:
-      "Standard delivery typically takes 2-7 business days depending on your location. Orders are processed and shipped within 1-3 business days of purchase. Express delivery options are available for an additional fee, with delivery times of 1-2 business days. International orders may take 10-21 business days. Delivery times are estimates and may vary during peak seasons or due to unforeseen circumstances. You will receive a tracking number via email once your order ships.",
-    category: "shipping",
-  },
-  {
-    faq_id: 4,
-    question: "Can I return or exchange items?",
-    answer:
-      "Yes, we offer a 7-day return and exchange policy. Items must be unworn, unwashed, and in their original condition with all tags attached. The product packaging must be intact and undamaged. To initiate a return or exchange, log into your account, go to 'My Orders', and select the item you wish to return. Follow the return instructions and print the prepaid shipping label. Once we receive and inspect your return, we will process your refund or send your replacement item within 3-5 business days.",
-    category: "returns",
-  },
-  {
-    faq_id: 5,
-    question: "How do I track my order?",
-    answer:
-      'You can track your order in real-time through multiple methods. Log into your account and navigate to "My Orders" section. Click on the specific order to view detailed tracking information including current location and estimated delivery date. Alternatively, you can use the tracking number sent to your email to track your package on the carrier\'s website. Most orders include a tracking link that updates automatically. For international orders, tracking may take 24-48 hours to become active in the system.',
-    category: "general",
-  },
-  {
-    faq_id: 6,
-    question: "What if I forgot my password?",
-    answer:
-      'Click the "Forgot Password" link on the login page. Enter the email address or phone number associated with your account. You will receive a password reset link via email within a few minutes. Click the link and follow the instructions to create a new password. Make sure to use a strong password with a combination of uppercase, lowercase, numbers, and special characters. If you do not receive the reset email, check your spam folder or contact our customer support team for assistance.',
-    category: "account",
-  },
-  {
-    faq_id: 7,
-    question: "What if I receive a defective item?",
-    answer:
-      "We stand behind the quality of our products. If you receive a defective or damaged item, contact our customer service team within 24 hours of delivery with photos of the defect. Our team will review your case and offer a replacement, repair, or full refund. We will provide a prepaid return shipping label for you to send back the defective item. Once we receive and verify the defect, we will process your replacement or refund immediately. We apologize for any inconvenience and appreciate your patience.",
-    category: "returns",
-  },
-  {
-    faq_id: 8,
-    question: "How do I contact customer service?",
-    answer:
-      "You can reach our customer service team through multiple channels. Use our live chat feature available on the website for immediate assistance during business hours (9:00 AM - 9:00 PM). Call our customer service hotline at 400-XXX-XXXX for phone support. Email us at service@example.com for detailed inquiries. Follow us on social media for updates and support. Response times vary by channel, with live chat typically providing the fastest response. We aim to respond to all inquiries within 24 hours.",
-    category: "technical",
-  },
-];
-
 const REVIEWS = [
-  // Product 1: Fashion Dress
   {
     review_id: 1,
     product_id: 1,
@@ -306,7 +246,6 @@ const REVIEWS = [
     comment:
       "Great quality dress. Very comfortable and true to size. Only wish it came in more colors.",
   },
-  // Product 2: Wireless Earbuds
   {
     review_id: 3,
     product_id: 2,
@@ -331,7 +270,6 @@ const REVIEWS = [
     comment:
       "Very good earbuds overall. Sometimes the touch controls are a bit sensitive but that's my only complaint.",
   },
-  // Product 3: Decorative Vase
   {
     review_id: 6,
     product_id: 3,
@@ -340,7 +278,6 @@ const REVIEWS = [
     comment:
       "Beautiful vase! Looks even better in person. Perfect addition to my living room.",
   },
-  // Product 4: Sports Shoes
   {
     review_id: 7,
     product_id: 4,
@@ -357,7 +294,6 @@ const REVIEWS = [
     comment:
       "Great shoes for the price. Very lightweight and the grip is fantastic.",
   },
-  // Product 5: Premium Books
   {
     review_id: 9,
     product_id: 5,
@@ -366,7 +302,6 @@ const REVIEWS = [
     comment:
       "Beautiful collector's edition. The hardcover and paper quality are outstanding.",
   },
-  // Product 6: Skincare Set
   {
     review_id: 10,
     product_id: 6,
@@ -499,13 +434,150 @@ const USERS = [
 ];
 
 const ROLES = [
+  { role_id: "user", name: "user" },
+  { role_id: "admin", name: "admin" },
+];
+
+const FAQS = [
   {
-    role_id: "user",
-    name: "user",
+    faq_id: 1001,
+    question: "What is GoPick?",
+    answer:
+      "GoPick is an e-commerce platform that allows users to browse, search, and purchase products across multiple categories in one place.",
+    category: "general",
   },
   {
-    role_id: "admin",
-    name: "admin",
+    faq_id: 1002,
+    question: "Do I need an account to place an order?",
+    answer:
+      "You can browse products without an account, but creating an account is required to place orders, track deliveries, and manage returns.",
+    category: "account",
+  },
+  {
+    faq_id: 1003,
+    question: "How do I create an account?",
+    answer:
+      "Click on the Sign Up button, fill in your personal details, and submit the registration form. You will receive a confirmation email once your account is created.",
+    category: "account",
+  },
+  {
+    faq_id: 1004,
+    question: "How can I search for products?",
+    answer:
+      "Use the search bar at the top of the Products page. You can also filter products by category, price range, or rating.",
+    category: "products",
+  },
+  {
+    faq_id: 1005,
+    question: "How do I add products to my cart?",
+    answer:
+      "Open a product detail page and click the Add to Cart button. The product will appear in your cart instantly.",
+    category: "products",
+  },
+  {
+    faq_id: 1006,
+    question: "Can I update the quantity of items in my cart?",
+    answer:
+      "Yes, you can increase or decrease item quantities directly on the cart page before checkout.",
+    category: "products",
+  },
+  {
+    faq_id: 1007,
+    question: "What payment methods are supported?",
+    answer:
+      "We support Visa, Mastercard, UnionPay, Alipay, WeChat Pay, and selected bank transfers.",
+    category: "payment",
+  },
+  {
+    faq_id: 1008,
+    question: "Is my payment information secure?",
+    answer:
+      "Yes. All payment transactions are encrypted and processed through secure payment gateways. We do not store your card details.",
+    category: "security",
+  },
+  {
+    faq_id: 1009,
+    question: "How long does shipping take?",
+    answer:
+      "Standard shipping usually takes 2–7 business days depending on your location.",
+    category: "shipping",
+  },
+  {
+    faq_id: 1010,
+    question: "Can I track my order?",
+    answer:
+      "Yes. Once your order is shipped, you can track it through the My Orders section.",
+    category: "shipping",
+  },
+  {
+    faq_id: 1011,
+    question: "Do you ship internationally?",
+    answer:
+      "International shipping is available to selected countries.",
+    category: "shipping",
+  },
+  {
+    faq_id: 1012,
+    question: "What is your return policy?",
+    answer:
+      "We offer a 7-day return policy for unused items in their original packaging.",
+    category: "returns",
+  },
+  {
+    faq_id: 1013,
+    question: "How do I request a return or refund?",
+    answer:
+      "Log into your account, go to My Orders, and follow the return instructions.",
+    category: "returns",
+  },
+  {
+    faq_id: 1014,
+    question: "What should I do if I receive a damaged product?",
+    answer:
+      "Please contact customer support within 24 hours of delivery.",
+    category: "returns",
+  },
+  {
+    faq_id: 1015,
+    question: "I forgot my password. What should I do?",
+    answer:
+      "Click the Forgot Password link on the login page.",
+    category: "account",
+  },
+  {
+    faq_id: 1016,
+    question: "How can I contact customer support?",
+    answer:
+      "You can contact our support team via the support section on the website.",
+    category: "general",
+  },
+  {
+    faq_id: 1017,
+    question: "Why is the website loading slowly?",
+    answer:
+      "Slow loading may be caused by network issues or high traffic.",
+    category: "technical",
+  },
+  {
+    faq_id: 1018,
+    question: "Which browsers are supported?",
+    answer:
+      "GoPick works best on modern browsers such as Chrome, Edge, Firefox, and Safari.",
+    category: "technical",
+  },
+  {
+    faq_id: 1019,
+    question: "How is my personal data protected?",
+    answer:
+      "We follow strict data protection policies.",
+    category: "security",
+  },
+  {
+    faq_id: 1020,
+    question: "Can I delete my account?",
+    answer:
+      "Yes. Please contact customer support if you wish to delete your account.",
+    category: "account",
   },
 ];
 
@@ -514,8 +586,9 @@ module.exports = {
   BANNERS,
   PRODUCT_CATEGORIES,
   FAQ_CATEGORIES,
-  FAQS,
+  FAQS,       
   REVIEWS,
   USERS,
   ROLES,
 };
+
