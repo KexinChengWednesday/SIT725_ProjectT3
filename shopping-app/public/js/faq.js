@@ -54,7 +54,7 @@ function renderFaqs(list) {
 }
 
 async function fetchFaqs() {
-  const res = await fetch('/api/faqs');
+  const res = await fetch('/api/faq/faqs');
   if (!res.ok) throw new Error('Failed to load FAQs');
   const json = await res.json();
   return json.data || [];
@@ -108,7 +108,7 @@ function bindFeedbackForm() {
         message: msgEl.value,
       };
 
-      const res = await fetch("/api/faq-feedback", {
+      const res = await fetch("/api/faq/faq-feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
