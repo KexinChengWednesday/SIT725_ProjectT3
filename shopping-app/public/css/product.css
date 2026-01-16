@@ -130,3 +130,66 @@ body {
 @media (max-width: 800px) {
   .product { grid-template-columns: 1fr; }
 }
+
+/* Reviews */
+/* Make Reviews look like Details card */
+.reviews {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.reviews h2 {
+  margin: 0 0 12px 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Review list styling */
+.reviews__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.reviews__item {
+  padding: 12px 0;
+  border-top: 1px solid #eee;
+}
+
+.reviews__item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.reviews__meta {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.reviews__comment {
+  margin: 0;
+  color: #333;
+  line-height: 1.5;
+}
+
+.reviews__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.reviews__user {
+  font-weight: 600;
+}
+
+.reviews__rating {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+

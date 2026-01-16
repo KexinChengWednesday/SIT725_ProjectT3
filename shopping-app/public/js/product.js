@@ -1,24 +1,14 @@
-// public/js/product.js
 function getProductId() {
-  const url = new URL(window.location.href);
+  const parts = window.location.pathname.split("/").filter(Boolean);
+  const raw = parts[0] === "products" ? parts[1] : null;
 
-  const raw = url.searchParams.get("product_id") ?? url.searchParams.get("id");
-  if (raw) {
-    const id = parseInt(raw, 10);
-    if (Number.isFinite(id) && id > 0) return id;
-  }
-
-  const parts = url.pathname.split("/").filter(Boolean);
-  if (parts[0] === "product" && parts[1]) {
-    const id = parseInt(parts[1], 10);
-    if (Number.isFinite(id) && id > 0) return id;
-  }
-
-  return 1;
+  const id = parseInt(raw, 10);
+  return Number.isFinite(id) && id > 0 ? id : null;
 }
 
 async function loadProduct() {
   const id = getProductId();
+  if (!id) throw new Error("Invalid URL. Use /product/:id");
 
   const res = await fetch(`/api/products/${id}`);
   if (!res.ok) throw new Error(`Product API error: ${res.status}`);
@@ -45,12 +35,66 @@ async function loadProduct() {
     li.textContent = s;
     ul.appendChild(li);
   });
+
+  return id;
+}
+
+async function loadReviews(productId) {
+  const res = await fetch(`/api/products/${productId}/reviews`);
+  if (!res.ok) throw new Error(`Reviews API error: ${res.status}`);
+
+  const reviews = await res.json();
+
+  const list = document.querySelector(".reviews__list");
+  const empty = document.querySelector(".reviews__empty");
+  if (!list) return;
+
+  list.innerHTML = "";
+
+  if (!reviews || reviews.length === 0) {
+    if (empty) empty.hidden = false;
+    return;
+  }
+  if (empty) empty.hidden = true;
+
+reviews.forEach((r) => {
+  const li = document.createElement("li");
+  li.className = "reviews__item";
+
+  const header = document.createElement("div");
+  header.className = "reviews__header";
+
+  const user = document.createElement("div");
+  user.className = "reviews__user";
+  user.textContent = r.user_id ?? "anonymous";
+
+  const ratingWrap = document.createElement("div");
+  ratingWrap.className = "reviews__rating";
+
+  const ratingNum = Math.max(0, Math.min(5, Number(r.rating ?? 0)));
+  const stars = "★".repeat(Math.round(ratingNum)) + "☆".repeat(5 - Math.round(ratingNum));
+
+  ratingWrap.textContent = `${stars} ${ratingNum.toFixed(0)}/5`;
+
+  header.appendChild(user);
+  header.appendChild(ratingWrap);
+
+  const comment = document.createElement("div");
+  comment.className = "reviews__comment";
+  comment.textContent = r.comment ?? "";
+
+  li.appendChild(header);
+  li.appendChild(comment);
+  list.appendChild(li);
+});
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadProduct().catch((e) => {
-    console.error(e);
-    document.querySelector(".product__info .title").textContent = "Failed to load product";
-    document.querySelector(".product__info .desc").textContent = e.message;
-  });
+  loadProduct()
+    .then((id) => loadReviews(id))
+    .catch((e) => {
+      console.error(e);
+      document.querySelector(".product__info .title").textContent = "Failed to load product";
+      document.querySelector(".product__info .desc").textContent = e.message;
+    });
 });
