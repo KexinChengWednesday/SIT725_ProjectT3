@@ -1,9 +1,10 @@
-// routes/mockApiRouter.js
+// routes/api/product.api.js
 const express = require("express");
 const router = express.Router();
 
-const productsApi = require("../controllers/products.api.controller");
-const reviewsApi = require("../controllers/reviews.api.controller");
+console.log("resolved controller path:", require.resolve("../../controllers/products.controller"));
+const productsApi = require("../../controllers/products.controller");
+const reviewsApi = require("../../controllers/reviews.controller");
 
 // GET /api/products
 router.get("/", productsApi.list);
