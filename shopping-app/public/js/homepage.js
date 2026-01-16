@@ -1,14 +1,38 @@
+// public/js/homepage.js
+
 // Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-  const container = document.getElementById('dynamic-container');
+document.addEventListener('DOMContentLoaded', async () => {
+  const container = document.getElementById('category-container');
 
-  // Create new div element
-  const newDiv = document.createElement('div');
-  newDiv.textContent = 'This div was added dynamically by script.js!';
-  newDiv.style.padding = '10px';
-  newDiv.style.backgroundColor = '#e0f7fa';
-  newDiv.style.border = '1px solid #00796b';
+  try {
+    // Fetch categories from API
+    const response = await fetch('/api/resource/product-category');
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-  // Append new div to container
-  container.appendChild(newDiv);
+    const result = await response.json();
+    const data = result.data;
+
+    // Create cards for each category
+    data.forEach(category => {
+      const cardHTML = `
+        <div class="card" data-category-id="${category.category_id}">
+          <div class="card-icon">
+            <img src="${category.icon}" alt="${category.name}" class="icon-image">
+          </div>
+          <div class="card-name">${category.name}</div>
+          <div class="card-description">${category.description}</div>
+        </div>
+      `;
+
+      // Append card to container
+      container.innerHTML += cardHTML;
+    });
+
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    container.innerHTML = '<p>Error loading categories. Please try again later.</p>';
+  }
 });
