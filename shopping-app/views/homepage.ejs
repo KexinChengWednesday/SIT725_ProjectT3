@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title><%= title %></title>
-  <link rel="stylesheet" href="/css/carousel.css" />
-</head>
-<body>
-  <%- include('components/header') %>
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="/css/carousel.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <div class="main">
+      <%- include('components/navBar') %>
 
-  <h1>Welcome to the Dynamic Page</h1>
+      <!-- Include carousel partial -->
+      <%- include('components/carousel') %>
 
-  <!-- Include carousel partial -->
-  <%- include('components/carousel') %>
+      <!-- Include category partial -->
+      <div id="category-container" class="category-container"></div>
 
-  <!-- Container where script will embed a div -->
-  <div id="dynamic-container"></div>
+      <%- include('components/footer') %>
 
-  <%- include('components/footer') %>
+      <!-- Load carousel script -->
+      <script src="/js/carousel.js"></script>
 
-  <!-- Load carousel script -->
-  <script src="/js/carousel.js"></script>
-
-  <!-- Load other script -->
-  <script src="/js/homepage.js"></script>
-</body>
+      <!-- Load other script -->
+      <script src="/js/homepage.js"></script>
+    </div>
+  </body>
 </html>
