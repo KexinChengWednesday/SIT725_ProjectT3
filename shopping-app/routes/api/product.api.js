@@ -14,4 +14,7 @@ router.get("/:id", productsApi.getById);
 // GET /api/products/:id/reviews
 router.get("/:id/reviews", reviewsApi.listByProduct);
 
+// ========= Product APIs =========
+router.get("/:category", productsApi.getProductByCategory);
+
 module.exports = router;

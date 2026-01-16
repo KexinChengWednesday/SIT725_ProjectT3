@@ -27,13 +27,6 @@ async function getProductByProductId(productId, { onlyActive = true } = {}) {
   };
 }
 
-module.exports = {
-  listProducts,
-  getProductByProductId,
-};
-
-const Product = require('../models/product.model');
-
 async function getProductByCategory(category) {
   try {
     // Fetch products from database
@@ -61,4 +54,4 @@ async function getProductByCategory(category) {
   }
 }
 
-module.exports = { getProductByCategory };
+module.exports = { getProductByCategory,listProducts,getProductByProductId};
