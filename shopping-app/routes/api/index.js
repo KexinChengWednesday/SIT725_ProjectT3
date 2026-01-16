@@ -7,11 +7,15 @@ const faqApi = require("./faq.api");
 const cartApi = require("./cart.api");
 const checkoutApi = require("./checkout.api");
 const resourceApi = require("./resource.api");
+const productApi = require("./product.api");
 
 // ========= API Route Mounting =========
 
 // FAQ APIs
 router.use("/faq", faqApi);
+
+// Product APIs
+router.use("/product", productApi);
 
 // Cart APIs
 router.use("/cart", cartApi);
