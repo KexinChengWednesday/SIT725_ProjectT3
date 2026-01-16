@@ -26,7 +26,4 @@ router.use("/checkout", checkoutApi);
 // Resource APIs
 router.use("/resource", resourceApi);
 
-// Product APIs
-router.use("/products", productApi);
-
 module.exports = router;

@@ -56,6 +56,6 @@ router.get("/confirmation", (req, res) => {
 });
 
 // product detail page
-router.get("/products/:id", (req, res) => res.render("product"));
+router.get("/product/:id", (req, res) => res.render("product"));
 
 module.exports = router;
