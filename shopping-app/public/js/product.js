@@ -1,6 +1,6 @@
 function getProductId() {
   const parts = window.location.pathname.split("/").filter(Boolean);
-  const raw = parts[0] === "products" ? parts[1] : null;
+  const raw = parts[0] === "product" ? parts[1] : null;
 
   const id = parseInt(raw, 10);
   return Number.isFinite(id) && id > 0 ? id : null;
@@ -10,7 +10,7 @@ async function loadProduct() {
   const id = getProductId();
   if (!id) throw new Error("Invalid URL. Use /product/:id");
 
-  const res = await fetch(`/api/products/${id}`);
+  const res = await fetch(`/api/product/${id}`);
   if (!res.ok) throw new Error(`Product API error: ${res.status}`);
 
   const product = await res.json();
@@ -40,7 +40,7 @@ async function loadProduct() {
 }
 
 async function loadReviews(productId) {
-  const res = await fetch(`/api/products/${productId}/reviews`);
+  const res = await fetch(`/api/product/${productId}/reviews`);
   if (!res.ok) throw new Error(`Reviews API error: ${res.status}`);
 
   const reviews = await res.json();

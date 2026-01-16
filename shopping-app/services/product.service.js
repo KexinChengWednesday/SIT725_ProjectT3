@@ -34,7 +34,7 @@ async function getProductByCategory(category) {
 
     // Convert Decimal128 to number and format data
     const processedProducts = products.map(product => ({
-      product_id: product._id || product.product_id,
+      product_id: product.product_id,
       name: product.name,
       price: parseFloat(product.price),  // Convert Decimal128 to number
       image: product.image,

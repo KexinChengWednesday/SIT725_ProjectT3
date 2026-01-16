@@ -67,7 +67,7 @@ async function fetchProductsByCategory(categoryId, categoryName) {
     // Show loading state
     productContainer.innerHTML = '<p>Loading products...</p>';
     
-    const response = await fetch(`/api/product/${categoryId}`);
+    const response = await fetch(`/api/product/byCategory/${categoryId}`);
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -102,7 +102,7 @@ function displayProducts(products, categoryName, container) {
   // Create product cards
   products.forEach(product => {
     const productHTML = `
-      <div class="product-card">
+      <div class="product-card" data-product-id="${product.product_id}">
         <div class="product-image">
           <img src="${product.image || '/images/placeholder.png'}" alt="${product.name}">
         </div>
@@ -111,7 +111,7 @@ function displayProducts(products, categoryName, container) {
           <p class="product-description">${product.shortDescription || 'No description'}</p>
           <div class="product-footer">
             <span class="product-price">$${product.price}</span>
-            <button class="btn-add-cart" data-product-id="${product._id}">Add to Cart</button>
+            <button class="btn-add-cart" data-product-id="${product.product_id}">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -120,8 +120,29 @@ function displayProducts(products, categoryName, container) {
     container.innerHTML += productHTML;
   });
 
-  // Attach event listeners to "Add to Cart" buttons
+  // Attach event listeners to product cards and "Add to Cart" buttons
+  attachProductCardClickHandlers();
   attachAddToCartHandlers();
+}
+
+
+// Handle product card clicks to redirect to product detail page
+function attachProductCardClickHandlers() {
+  const productCards = document.querySelectorAll('.product-card');
+  
+  productCards.forEach(card => {
+    card.addEventListener('click', function(event) {
+      // Don't redirect if clicking the "Add to Cart" button
+      if (event.target.classList.contains('btn-add-cart')) {
+        event.stopPropagation();
+        return;
+      }
+      
+      const productId = this.getAttribute('data-product-id');
+      console.log('Navigating to product:', productId);
+      window.location.href = `/product/${productId}`;
+    });
+  });
 }
 
 // Handle "Add to Cart" button clicks
@@ -129,7 +150,8 @@ function attachAddToCartHandlers() {
   const buttons = document.querySelectorAll('.btn-add-cart');
   
   buttons.forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function(event) {
+      event.stopPropagation(); // Prevent card click from triggering
       const productId = this.getAttribute('data-product-id');
       console.log('Added to cart:', productId);
       // Add your cart logic here
