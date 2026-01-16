@@ -2,7 +2,6 @@
 const express = require("express");
 const router = express.Router();
 
-console.log("resolved controller path:", require.resolve("../../controllers/products.controller"));
 const productsApi = require("../../controllers/products.controller");
 const reviewsApi = require("../../controllers/reviews.controller");
 
