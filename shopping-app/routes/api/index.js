@@ -6,6 +6,7 @@ const router = express.Router();
 const faqApi = require("./faq.api");
 const cartApi = require("./cart.api");
 const checkoutApi = require("./checkout.api");
+const resourceApi = require("./resource.api");
 
 // ========= API Route Mounting =========
 
@@ -17,6 +18,10 @@ router.use("/cart", cartApi);
 
 // Checkout APIs
 router.use("/checkout", checkoutApi);
+
+// Resource APIs
+router.use("/resource", resourceApi);
+
 
 
 module.exports = router;

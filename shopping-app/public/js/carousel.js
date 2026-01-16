@@ -1,46 +1,129 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   let slideIndex = 0;
-  const slides = document.querySelectorAll('.carousel-slide');
-  const dots = document.querySelectorAll('.dot');
-  const prev = document.querySelector('.prev');
-  const next = document.querySelector('.next');
+  let slides = [];
+  let isAnimating = false;
 
-  function showSlide(index) {
-    if (index >= slides.length) slideIndex = 0;
-    if (index < 0) slideIndex = slides.length - 1;
+  // Fetch banners from API
+  async function fetchBanners() {
+    try {
+      const response = await fetch('/api/resource/banner');
+      if (!response.ok) {
+        throw new Error('Failed to fetch banners');
+      }
+      const result = await response.json();
+      return result.data;
+    } catch (error) {
+      console.error('Error fetching banners:', error);
+      return [];
+    }
+  }
 
-    slides.forEach((slide, i) => {
-      slide.classList.toggle('active', i === slideIndex);
-      dots[i].classList.toggle('active', i === slideIndex);
+  // Render carousel with fetched banners
+  function renderCarousel(banners) {
+    const carouselContainer = document.querySelector('.carousel');
+
+    // Clear existing content
+    carouselContainer.innerHTML = '';
+
+    // Create slides
+    banners.forEach((banner, index) => {
+      const slide = document.createElement('div');
+      slide.className = `carousel-slide ${index === 0 ? 'active' : ''}`;
+      slide.innerHTML = `<img src="${banner.image}" alt="${banner.title || 'Slide ' + (index + 1)}" />`;
+      carouselContainer.appendChild(slide);
+
     });
+
+    // Add navigation arrows
+    const prevArrow = document.createElement('a');
+    prevArrow.className = 'prev';
+    prevArrow.innerHTML = '&#10094;';
+    prevArrow.onclick = () => changeSlide(-1);
+    carouselContainer.appendChild(prevArrow);
+
+    const nextArrow = document.createElement('a');
+    nextArrow.className = 'next';
+    nextArrow.innerHTML = '&#10095;';
+    nextArrow.onclick = () => changeSlide(1);
+    carouselContainer.appendChild(nextArrow);
+
+    // Update slides and dots references
+    slides = document.querySelectorAll('.carousel-slide');
   }
 
-  function nextSlide() {
-    slideIndex++;
-    showSlide(slideIndex);
+  function changeSlide(n) {
+    // Prevent rapid clicks during animation
+    if (isAnimating) return;
+    
+    isAnimating = true;
+
+    const currentSlideEl = slides[slideIndex];
+    
+    // Add exit animation to current slide
+    currentSlideEl.classList.add('exit');
+    currentSlideEl.classList.remove('active');
+
+    // Update slide index
+    slideIndex += n;
+    if (slideIndex >= slides.length) slideIndex = 0;
+    if (slideIndex < 0) slideIndex = slides.length - 1;
+
+    // Prepare next slide immediately (no delay)
+    const nextSlideEl = slides[slideIndex];
+    nextSlideEl.classList.add('active');
+    nextSlideEl.classList.remove('exit');
+
+    // Clean up exit animation after it completes
+    setTimeout(() => {
+      currentSlideEl.classList.remove('exit');
+      isAnimating = false;
+    }, 500); // Match animation duration (0.5s)
   }
 
-  function prevSlide() {
-    slideIndex--;
-    showSlide(slideIndex);
+  function currentSlide(n) {
+    // Prevent rapid clicks during animation
+    if (isAnimating) return;
+    
+    isAnimating = true;
+
+    const oldSlideEl = slides[slideIndex];
+    
+    // Add exit animation to current slide
+    oldSlideEl.classList.add('exit');
+    oldSlideEl.classList.remove('active');
+
+    // Update slide index
+    slideIndex = n;
+
+    // Prepare next slide immediately (no delay)
+    const nextSlideEl = slides[slideIndex];
+    nextSlideEl.classList.add('active');
+    nextSlideEl.classList.remove('exit');
+
+    // Update dots immediately
+    updateDots();
+
+    // Clean up exit animation after it completes
+    setTimeout(() => {
+      oldSlideEl.classList.remove('exit');
+      isAnimating = false;
+    }, 500); // Match animation duration (0.5s)
   }
 
-  prev.addEventListener('click', prevSlide);
-  next.addEventListener('click', nextSlide);
+  // Make functions global for onclick handlers
+  window.changeSlide = changeSlide;
+  window.currentSlide = currentSlide;
 
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      slideIndex = i;
-      showSlide(slideIndex);
-    });
-  });
+  // Fetch banners and initialize carousel
+  const banners = await fetchBanners();
+  if (banners.length > 0) {
+    renderCarousel(banners);
 
-  // Auto slide every 5 seconds
-  setInterval(() => {
-    slideIndex++;
-    showSlide(slideIndex);
-  }, 5000);
-
-  // Initialize
-  showSlide(slideIndex);
+    // Auto slide every 7 seconds
+    setInterval(() => {
+      changeSlide(1);
+    }, 7000);
+  } else {
+    console.warn('No banners found');
+  }
 });

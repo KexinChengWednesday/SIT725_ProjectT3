@@ -147,45 +147,39 @@ const BANNERS = [
 
 const PRODUCT_CATEGORIES = [
   {
-    category_id: "all",
-    name: "All",
-    icon: "🛍️",
-    description: "View all products",
-  },
-  {
     category_id: "clothing",
     name: "Clothing",
-    icon: "👕",
+    icon: "/icons/clothing.png",
     description: "Apparel and fashion items",
   },
   {
     category_id: "electronics",
     name: "Electronics",
-    icon: "📱",
+    icon: "/icons/electronics.png",
     description: "Electronic devices and gadgets",
   },
   {
     category_id: "home",
     name: "Home",
-    icon: "🏠",
+    icon: "/icons/home.png",
     description: "Home and living products",
   },
   {
     category_id: "sports",
     name: "Sports",
-    icon: "⚽",
+    icon: "/icons/sport.png",
     description: "Sports and fitness equipment",
   },
   {
     category_id: "books",
     name: "Books",
-    icon: "📚",
+    icon: "/icons/book.png",
     description: "Books and reading materials",
   },
   {
     category_id: "beauty",
     name: "Beauty",
-    icon: "💄",
+    icon: "/icons/cosmetics.png",
     description: "Beauty and skincare products",
   },
 ];

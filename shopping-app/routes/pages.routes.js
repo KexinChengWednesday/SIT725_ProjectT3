@@ -9,8 +9,32 @@ router.get("/faq", (req, res) => {
 });
 
 // Homepage
-router.get("/homepage", (req, res) => {
-  res.render("homepage", { title: "Home" });
+router.get("/homepage", async (req, res) => {
+  try {
+    // Fetch categories from API
+    const response = await fetch('http://localhost:5000/api/resource/product-category');
+    
+    if (!response.ok) {
+      throw new Error(`API error! status: ${response.status}`);
+    }
+
+    const categories = await response.json();
+
+    // Pass categories to homepage.ejs
+    res.render("homepage", { 
+      title: "Home",
+      categories: categories 
+    });
+
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    
+    // Render with empty categories if API fails
+    res.render("homepage", { 
+      title: "Home",
+      categories: [] 
+    });
+  }
 });
 
 // Cart page
