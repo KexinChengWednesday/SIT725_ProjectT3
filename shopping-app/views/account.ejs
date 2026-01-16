@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Account</title>
-  <link rel="stylesheet" href="/css/account.css">
+  <link rel="stylesheet" href="/css/checkout.css" />
+  <link rel="stylesheet" href="/css/account.css" />
+
 </head>
 <body>
 
@@ -22,9 +24,16 @@
       <aside class="account-sidebar">
         <h3>Manage My Account</h3>
         <ul>
-          <li class="active"><a href="/account">My Profile</a></li>
-          <li><a href="#">Address Book</a></li>
-          <li><a href="#">My Payment Options</a></li>
+          <li class="<%= activePage === 'profile' ? 'active' : '' %>">
+            <a href="/account">My Profile</a>
+          </li>
+          <li class="<%= activePage === 'address' ? 'active' : '' %>">
+            <a href="/account/address">Address Book</a>
+          </li>
+         <li class="<%= activePage === 'payment' ? 'active' : '' %>">
+           <a href="/account/payment">My Payment Options</a>
+         </li>
+
         </ul>
 
     
