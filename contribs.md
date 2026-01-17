@@ -12,7 +12,7 @@
 
 ## MINH THAC NGUYUEN
 **Sprint 1**:
--
+- 
 
 ## YULIN ZHUANG(YORI ZHUANG)
 **Sprint 1**: 
@@ -23,8 +23,8 @@
 
 ## YUJIANG LAI
 **Sprint 1**: 
--
+- 
 
 ## VIET HUY THAI
 **Sprint 1**:
--
+- 
