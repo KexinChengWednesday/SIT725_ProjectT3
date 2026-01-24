@@ -44,7 +44,7 @@ cd SIT725_ProjectT3
 ```
 
 ### Step 2: Build and start the containers
-
+Before running the following command, please ensure that Docker Desktop is installed and running.
 ```bash
 docker compose up --build
 ```
@@ -129,3 +129,4 @@ Screenshots demonstrating:
 - Successful database-backed functionality  
 
 are included in the submitted PDF for **SIT725 Task 8.2HD**.
+
