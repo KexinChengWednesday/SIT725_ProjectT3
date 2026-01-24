@@ -1,0 +1,26 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: gopick-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  app:
+    build:
+      context: ./shopping-app
+    container_name: gopick-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    environment:
+      PORT: 3000
+      MONGO_URI: mongodb://mongo:27017/gopick
+    volumes:
+      - ./shopping-app:/usr/src/app
+      - /usr/src/app/node_modules
+
+volumes:
+  mongo_data:

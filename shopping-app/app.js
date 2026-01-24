@@ -17,6 +17,12 @@ app.use(express.json());
 
 // static files (css/js/icons/images)
 app.use(express.static(path.join(__dirname, "public")));
+app.get('/api/student', (_req, res) => {
+  res.status(200).json({
+    name: 'Kexin Cheng',
+    studentId: 's224384754'
+  });
+});
 
 // routes
 const router = require("./routes");

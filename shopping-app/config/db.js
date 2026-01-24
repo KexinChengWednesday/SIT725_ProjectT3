@@ -2,14 +2,10 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const mongoURI = process.env.MONGO_URI;
-
+    const mongoURI = process.env.MONGO_URI || 'mongodb://localhost:27017/gopick';
     await mongoose.connect(mongoURI);
     console.log('MongoDB connected successfully');
   } catch (err) {
-    //console.error('MongoDB connection error:', err.message);
-    //process.exit(1); // Exit process with failure
-    //15/1/26 have to ignore error to allow access cart
     console.warn('MongoDB connection failed. Running in MOCK mode.');
     console.warn(err.message);
   }
