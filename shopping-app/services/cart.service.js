@@ -1,5 +1,5 @@
 // services/cart.service.js
-const { mockProducts } = require("../config/mockData");
+const { PRODUCTS } = require("../config/mockData");
 
 // use in-memory cart（mock）
 const cartState = {
@@ -19,7 +19,7 @@ function recalcTotal() {
 
 function findProduct(productId) {
   const id = Number(productId);
-  return mockProducts.find((p) => Number(p.id) === id);
+  return PRODUCTS.find((p) => Number(p.product_id) === id);
 }
 
 function getStock(product) {
@@ -69,11 +69,11 @@ function addItem(productId, qty = 1) {
     existing.quantity = desiredQty;
   } else {
     cartState.items.push({
-      productId: Number(product.id),
+      productId: Number(product.product_id),
       name: product.name,
       price: Number(product.price),
       image: product.image,
-      category: product.category,
+      categoryId: product.categoryId,
       quantity: addQty,
     });
   }

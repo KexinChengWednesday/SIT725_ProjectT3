@@ -166,9 +166,4 @@ async function handleAdd(productId) {
   }
 }
 
-document.getElementById("add1").addEventListener("click", () => handleAdd(1));
-document.getElementById("add2").addEventListener("click", () => handleAdd(2));
-document.getElementById("add3").addEventListener("click", () => handleAdd(3));
-
-
 refresh();

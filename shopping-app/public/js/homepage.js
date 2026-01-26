@@ -148,13 +148,32 @@ function attachProductCardClickHandlers() {
 // Handle "Add to Cart" button clicks
 function attachAddToCartHandlers() {
   const buttons = document.querySelectorAll('.btn-add-cart');
-  
+
   buttons.forEach(button => {
-    button.addEventListener('click', function(event) {
+    button.addEventListener('click', async function (event) {
       event.stopPropagation(); // Prevent card click from triggering
+
       const productId = this.getAttribute('data-product-id');
-      console.log('Added to cart:', productId);
-      // Add your cart logic here
+
+      try {
+        const res = await fetch("/api/cart/add", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ productId, quantity: 1 }),
+        });
+
+        if (!res.ok) {
+          alert(await res.text());
+          return;
+        }
+
+        const cart = await res.json();
+        showCartModal();
+      } catch (err) {
+        console.error(err);
+        alert("Network error");
+      }
     });
   });
 }
+
