@@ -1,0 +1,116 @@
+.ai-wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 30px 16px;
+}
+
+.ai-title {
+  font-family: "Playfair Display", serif;
+  font-size: 34px;
+  margin: 10px 0 6px;
+}
+
+.ai-subtitle {
+  opacity: 0.85;
+  margin-bottom: 18px;
+}
+
+.ai-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 14px 0 22px;
+}
+
+.ai-chip {
+  border: 1px solid rgba(0,0,0,0.15);
+  background: white;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.ai-chip:hover {
+  transform: translateY(-1px);
+}
+
+.ai-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  background: rgba(0,0,0,0.03);
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 18px;
+}
+
+.ai-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ai-field label {
+  font-weight: 600;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.ai-field input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.15);
+  outline: none;
+}
+
+.ai-send {
+  grid-column: 1 / -1;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.ai-chat {
+  background: white;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px;
+  padding: 14px;
+  min-height: 200px;
+}
+
+.ai-msg {
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+.ai-msg--system { background: rgba(0,0,0,0.04); }
+.ai-msg--user { background: rgba(0,0,0,0.06); }
+.ai-msg--ai { background: rgba(0,0,0,0.03); }
+
+.ai-rec-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.ai-rec-card {
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 12px;
+  background: white;
+}
+
+.ai-rec-name { font-weight: 800; margin-bottom: 6px; }
+.ai-rec-meta { font-weight: 600; opacity: 0.85; margin-bottom: 6px; }
+.ai-rec-reason { opacity: 0.85; font-size: 13px; }
+
+@media (max-width: 780px) {
+  .ai-form { grid-template-columns: 1fr; }
+  .ai-rec-list { grid-template-columns: 1fr; }
+}

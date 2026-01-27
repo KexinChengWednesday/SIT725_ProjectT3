@@ -4,6 +4,8 @@ const connectDB = require("./config/db");
 const path = require("path");
 const app = express();
 const adminRoutes = require("./routes/admin.routes");
+const aiRoutes = require('./routes/ai.routes');
+
 // database
 connectDB();
 
@@ -23,6 +25,8 @@ app.use(express.static(path.join(__dirname, "public")));
 // routes
 const router = require("./routes");
 app.use("/", router);
+//ai 
+app.use('/', aiRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
