@@ -57,7 +57,7 @@ Enter the application container shell:
 docker exec -it GoPick-application sh
 ```
 
-Inside the container, run the seed script to populate initial data:
+Inside the container, ensure you are on the app folder, run the seed script to populate initial data:
 
 ```bash
 node config/seed.js
@@ -80,9 +80,20 @@ http://localhost:5000
 ```
 
 You should see the application running.
+All the data in the application is fetch from database. As long as the website shows everything such as cards with proper images, icons; this should means that all services in properly connected.
 
 ---
 
+## Step 6: Testing URL
+
+Keep your web browser open and go to these route to see if they return expected content:
+
+- This flowing URL should return the home page:
+```
+http://localhost:5000
+```
+
+---
 ## Troubleshooting
 
 - If ports are already in use, stop conflicting services or change port mappings in `docker-compose.yml`.
@@ -95,3 +106,4 @@ docker compose down
 ---
 
 Feel free to reach out if you encounter any issues during setup!
+
