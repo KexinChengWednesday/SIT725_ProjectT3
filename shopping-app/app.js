@@ -3,7 +3,7 @@ const express = require("express");
 const connectDB = require("./config/db");
 const path = require("path");
 const app = express();
-
+const adminRoutes = require("./routes/admin.routes");
 // database
 connectDB();
 
@@ -14,6 +14,8 @@ app.set("views", path.join(__dirname, "views"));
 // middlewares
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use("/admin", adminRoutes);
 
 // static files (css/js/icons/images)
 app.use(express.static(path.join(__dirname, "public")));
