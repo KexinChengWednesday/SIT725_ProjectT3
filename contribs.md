@@ -10,6 +10,19 @@
 - Wrote and refined FAQ content and categories
 - Implemented FAQ feedback submission flow
 
+**Sprint 2**:
+
+- Implemented an admin interface to manage FAQ feedback with advanced CRUD operations:
+  - Read: filtering/searching/sorting and excluding soft-deleted records
+  - Update: status lifecycle updates (new → reviewed → resolved)
+  - Delete: soft delete via `isDeleted`
+- Refactored to align with MVC: routes map URLs only, controller handles request logic, service handles DB operations.
+
+- Added AI recommendation page with keyword presets and budget/style input.
+- Generates product recommendations using mockData-based candidate filtering (and optional OpenAI integration if configured).
+
+
+
 ## MINH THAC NGUYEN
 **Sprint 1**:
 - Developed data model, created and refined mockdata to match the schema.
