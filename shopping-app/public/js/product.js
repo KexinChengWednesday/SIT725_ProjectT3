@@ -6,11 +6,17 @@ function getProductId() {
   return Number.isFinite(id) && id > 0 ? id : null;
 }
 
+
 async function loadProduct() {
   const id = getProductId();
   if (!id) throw new Error("Invalid URL. Use /product/:id");
 
   const res = await fetch(`/api/product/${id}`);
+
+  if (res.status === 404) {
+    window.location.href = `/product/not-found?id=${id}`;
+    return null;
+  }
   if (!res.ok) throw new Error(`Product API error: ${res.status}`);
 
   const product = await res.json();

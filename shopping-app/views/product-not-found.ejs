@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Product Not Found</title>
+
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/product.css" />
+  </head>
+
+  <body>
+    <%- include('components/navBar') %>
+<main class="wrap notfound-page">
+  <section class="notfound-card">
+    <h2 class="notfound-title">Product not found</h2>
+
+    <p class="notfound-text">
+      We couldn't find the product with ID:
+      <strong><%= productId %></strong>
+    </p>
+
+    <div class="notfound-actions">
+      <a class="btn notfound-btn" href="/homepage">Back to Home</a>
+    </div>
+  </section>
+</main>
+    <%- include('components/footer') %>
+  </body>
+</html>
