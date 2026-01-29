@@ -31,7 +31,10 @@
 
 ## YUJIANG LAI
 **Sprint 1**: 
-- 
+-  Designed and implemented the Product detail page interfaces
+-  Implemented Rest api get functionality for fetching product detail information
+-  Implemented the product missing page, when customer try to search non-exist product
+-  Implemented basic validation and error handling for product detail page, and utils folder for handle http error. 
 
 ## VIET HUY THAI
 **Sprint 1**:
