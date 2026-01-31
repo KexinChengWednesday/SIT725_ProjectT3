@@ -113,6 +113,74 @@ nav a:hover {
   font-size: 40px;
   font-weight: 600;
 }
+
+/* ===== USER SECTION STYLING ===== */
+.cart-link {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+}
+
+.user-profile:hover {
+  background-color: #f0f0f0;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.login-btn {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+  background-color: #0056b3;
+}
+
 /* ===== PRODUCT CARD STYLING ===== */
 
 .product-container {

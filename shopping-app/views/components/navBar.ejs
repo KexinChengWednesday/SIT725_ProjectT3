@@ -9,9 +9,24 @@
       <input type="text" class="search-bar" placeholder="Search products..." />
       <button class="search-btn">🔍</button>
     </div>
-    <a href="/cart">
-      <img src="/icons/cart.png" alt="cart" width="30" height="30" >
-    </a>
+
+    <div class="user-section">
+      <a href="/cart" class="cart-link">
+        <img src="/icons/cart.png" alt="cart" width="30" height="30" >
+        <span class="cart-badge" id="cartBadge"></span>
+      </a>
+
+      <% if (user) { %>
+        <!-- User is logged in -->
+        <div class="user-profile">
+          <img src="<%= user.avatar || '/icons/avatar.png' %>" alt="<%= user.name %>" width="40" height="40" class="avatar">
+          <span class="user-name">Hi, <%= user.name %></span>
+        </div>
+      <% } else { %>
+        <!-- User is not logged in -->
+        <a href="/login" class="login-btn">Login</a>
+      <% } %>
+    </div>
   </div>
 
   <nav>
@@ -20,3 +35,5 @@
     <a href="/account">My Account</a>
   </nav>
 </header>
+
+<script src="/js/navbar.js"></script>
