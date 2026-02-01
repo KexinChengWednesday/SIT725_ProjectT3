@@ -54,6 +54,12 @@ router.get("/confirmation", requireUser, (req, res) => {
 });
 
 // product detail page
+router.get("/product/not-found", (req, res) => {
+  const productId = req.query.id ?? req.query.product_id ?? "";
+  return res.status(404).render("product-not-found", { productId });
+});
+
+// product detail page
 router.get("/product/:id", (req, res) => res.render("product", {user: req.session?.user || null  }));
 
 // admin pages
