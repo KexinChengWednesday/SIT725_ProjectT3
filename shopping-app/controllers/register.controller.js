@@ -34,7 +34,7 @@ async function createUser (req, res) {
 
     res.status(500).json({
       success: false,
-      message: "Error creating user",
+      message: error.message,
       error: error.message,
     });
   }
