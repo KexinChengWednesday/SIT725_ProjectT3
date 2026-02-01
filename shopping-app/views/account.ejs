@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Account</title>
+    <title><%= title || "My Account" %></title>
+
     <link rel="stylesheet" href="/css/checkout.css" />
     <link rel="stylesheet" href="/css/account.css" />
     <link rel="stylesheet" href="/css/styles.css" />
@@ -33,6 +34,13 @@
               <a href="/account/payment">My Payment Options</a>
             </li>
           </ul>
+
+          <hr class="account-divider" />
+
+          <!-- Delete account (workflow) -->
+          <form method="POST" action="/account/delete" onsubmit="return confirm('Are you sure you want to delete your account?');">
+            <button type="submit" class="btn danger full-width">Delete Account</button>
+          </form>
         </aside>
 
         <!-- RIGHT -->
@@ -40,31 +48,54 @@
           <div class="account-header">
             <h2>Edit Your Profile</h2>
             <p class="welcome">
-              Welcome! <span class="name"><%= user.firstName %></span>
+              Welcome! <span class="name"><%= user.name%></span>
             </p>
           </div>
 
-          <div class="profile-card">
-            <form class="profile-form">
-              <div class="form-grid">
-                <div class="form-group">
-                  <label>First Name</label>
-                  <input type="text" value="<%= user.firstName %>" />
-                </div>
+          <!-- Error banner (like your screenshot) -->
+          <% if (bannerError) { %>
+            <div class="error-banner" role="alert" aria-live="polite">
+              <div class="error-icon">!</div>
+              <div class="error-text">
+                <div class="error-title">There was a problem</div>
+                <div class="error-message"><%= bannerError %></div>
+              </div>
+            </div>
+          <% } %>
 
-                <div class="form-group">
-                  <label>Last Name</label>
-                  <input type="text" value="<%= user.lastName %>" />
+          <% if (successMsg) { %>
+            <div class="success-banner" role="status" aria-live="polite">
+              <div class="success-title"><%= successMsg %></div>
+            </div>
+          <% } %>
+
+          <div class="profile-card">
+            <form class="profile-form" method="POST" action="/account/update" novalidate>
+              <div class="form-grid">
+                <div class="form-group full">
+                  <label>Full Name</label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    value="<%= (form && form.fullName) ? form.fullName : (user ? user.name : '') %>"
+                    class="<%= (fieldErrors && fieldErrors.fullName) ? 'input-error' : '' %>"
+                  />
+                  <% if (fieldErrors && fieldErrors.fullName) { %>
+                    <small class="field-error"><%= fieldErrors.fullName %></small>
+                  <% } %>
                 </div>
 
                 <div class="form-group full">
                   <label>Email</label>
-                  <input type="email" value="<%= user.email %>" />
-                </div>
-
-                <div class="form-group full">
-                  <label>Address</label>
-                  <input type="text" value="<%= user.address %>" />
+                  <input
+                    type="email"
+                    name="email"
+                    value="<%= (form && form.email) ? form.email : (user ? user.email : '') %>"
+                    class="<%= (fieldErrors && fieldErrors.email) ? 'input-error' : '' %>"
+                  />
+                  <% if (fieldErrors && fieldErrors.email) { %>
+                    <small class="field-error"><%= fieldErrors.email %></small>
+                  <% } %>
                 </div>
               </div>
 
@@ -72,20 +103,44 @@
 
               <div class="form-grid">
                 <div class="form-group full">
-                  <input type="password" placeholder="Current Password" />
+                  <input
+                    type="password"
+                    name="currentPassword"
+                    placeholder="Current Password"
+                    class="<%= (fieldErrors && fieldErrors.currentPassword) ? 'input-error' : '' %>"
+                  />
+                  <% if (fieldErrors && fieldErrors.currentPassword) { %>
+                    <small class="field-error"><%= fieldErrors.currentPassword %></small>
+                  <% } %>
                 </div>
 
                 <div class="form-group full">
-                  <input type="password" placeholder="New Password" />
+                  <input
+                    type="password"
+                    name="newPassword"
+                    placeholder="New Password"
+                    class="<%= (fieldErrors && fieldErrors.newPassword) ? 'input-error' : '' %>"
+                  />
+                  <% if (fieldErrors && fieldErrors.newPassword) { %>
+                    <small class="field-error"><%= fieldErrors.newPassword %></small>
+                  <% } %>
                 </div>
 
                 <div class="form-group full">
-                  <input type="password" placeholder="Confirm New Password" />
+                  <input
+                    type="password"
+                    name="confirmNewPassword"
+                    placeholder="Confirm New Password"
+                    class="<%= (fieldErrors && fieldErrors.confirmNewPassword) ? 'input-error' : '' %>"
+                  />
+                  <% if (fieldErrors && fieldErrors.confirmNewPassword) { %>
+                    <small class="field-error"><%= fieldErrors.confirmNewPassword %></small>
+                  <% } %>
                 </div>
               </div>
 
               <div class="form-actions">
-                <button type="button" class="btn cancel">Cancel</button>
+                <a href="/account" class="btn cancel">Cancel</a>
                 <button type="submit" class="btn save">Save Changes</button>
               </div>
             </form>
@@ -93,6 +148,7 @@
         </section>
       </div>
     </main>
+
     <%- include('components/footer') %>
   </body>
 </html>

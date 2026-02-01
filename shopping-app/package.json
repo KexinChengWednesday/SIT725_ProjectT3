@@ -22,17 +22,22 @@
   "type": "commonjs",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --reporter spec",
     "start": "nodemon app.js",
     "seeddb": "node config/seed.js"
   },
   "dependencies": {
+    "chai": "^6.2.2",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^5.2.1",
-    "mongoose": "^9.0.2"
+    "express-session": "^1.19.0",
+    "mocha": "^11.7.5",
+    "mongoose": "^9.0.2",
+    "request": "^2.88.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.11"
+    "nodemon": "^3.1.11",
+    "supertest": "^7.2.2"
   }
 }

@@ -89,9 +89,45 @@ reviews.forEach((r) => {
 });
 }
 
+async function apiAddToCart(productId, quantity) {
+  const res = await fetch("/api/cart/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ productId, quantity }),
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+function bindAddToCart(productId) {
+  const btn = document.querySelector(".actions .btn");
+  const qtyInput = document.querySelector(".actions input[type='number']");
+
+  if (!btn) return;
+
+  btn.addEventListener("click", async () => {
+    const quantity = Number(qtyInput?.value || 1);
+
+    if (!Number.isFinite(quantity) || quantity <= 0) {
+      alert("Invalid quantity");
+      return;
+    }
+
+    try {
+      const cart = await apiAddToCart(productId, quantity);
+      showCartModal();
+    } catch (e) {
+      alert(e.message); 
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   loadProduct()
-    .then((id) => loadReviews(id))
+    .then((id) => {
+      bindAddToCart(id);     
+      return loadReviews(id);
+    })
     .catch((e) => {
       console.error(e);
       document.querySelector(".product__info .title").textContent = "Failed to load product";

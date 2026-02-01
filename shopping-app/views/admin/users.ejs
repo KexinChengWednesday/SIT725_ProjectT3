@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Users Management</title>
+    <link rel="stylesheet" href="/css/admin-users.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <div>
+          <h1>Admin Users Management</h1>
+          <p>Manage all system users and administrators</p>
+        </div>
+        <div class="header-buttons">
+          <button class="btn-add" id="addUserBtn">+ Add New User</button>
+          <button class="btn-delete" id="deleteUserBtn">- Delete User</button>
+          <button class="btn-cancel-delete" id="cancelDeleteBtn" style="display: none">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Success Message -->
+      <div class="success-message" id="successMessage">User created successfully!</div>
+
+      <!-- Delete Success Message -->
+      <div class="delete-success-message" id="deleteSuccessMessage">Selected users deleted successfully!</div>
+
+      <!-- Delete Error Message -->
+      <div class="delete-error-message" id="deleteErrorMessage">Error deleting users. Please try again.</div>
+
+      <!-- Table Wrapper -->
+      <div class="table-wrapper">
+        <div class="table-header">
+          <div class="table-header-content">
+            <h2>Users List</h2>
+            <span class="selected-count" id="selectedCount" style="display: none">
+              <strong id="countNumber">0</strong> selected
+            </span>
+          </div>
+
+          <!-- Filter Section -->
+          <div class="filter-section">
+            <div class="filter-group">
+              <label for="roleFilter">Filter by Role:</label>
+              <select id="roleFilter" name="roleFilter" class="filter-select">
+                <option value="all">All Users</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+              </select>
+            </div>
+            <button class="btn-reset-filter" id="resetFilterBtn">Reset Filter</button>
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading" id="loadingState">
+          <div class="spinner"></div>
+          <p>Loading users...</p>
+        </div>
+
+        <!-- Table -->
+        <div id="tableContainer" style="display: none">
+          <table>
+            <thead>
+              <tr>
+                <th class="checkbox-col" id="checkboxHeader" style="display: none">
+                  <input type="checkbox" id="selectAllCheckbox" />
+                </th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Date of Birth</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Postcode</th>
+                <th>Country</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody"></tbody>
+          </table>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none">
+          <div class="empty-state-icon">📭</div>
+          <h3>No Users Found</h3>
+          <p>There are currently no users matching your filter.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div class="modal" id="addUserModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Add New User</h2>
+          <button class="close-btn" id="closeModalBtn">&times;</button>
+        </div>
+
+        <form id="addUserForm">
+          <!-- Name -->
+          <div class="form-group">
+            <label for="name">Name <span class="optional">(required)</span></label>
+            <input type="text" id="name" name="name" required />
+            <div class="error-message" id="nameError"></div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Email <span class="optional">(required)</span></label>
+            <input type="email" id="email" name="email" required />
+            <div class="error-message" id="emailError"></div>
+          </div>
+
+          <!-- Phone and DOB -->
+          <div class="form-group two-col">
+            <div>
+              <label for="phone">Phone <span class="optional">(optional)</span></label>
+              <input type="tel" id="phone" name="phone" />
+              <div class="error-message" id="phoneError"></div>
+            </div>
+            <div>
+              <label for="dob">Date of Birth <span class="optional">(required)</span></label>
+              <input type="date" id="dob" name="dob" required />
+              <div class="error-message" id="dobError"></div>
+            </div>
+          </div>
+
+          <!-- Address Line -->
+          <div class="form-group">
+            <label for="addressLine">Address Line <span class="optional">(required)</span></label>
+            <input type="text" id="addressLine" name="addressLine" required />
+            <div class="error-message" id="addressLineError"></div>
+          </div>
+
+          <!-- City and State -->
+          <div class="form-group two-col">
+            <div>
+              <label for="city">City <span class="optional">(required)</span></label>
+              <input type="text" id="city" name="city" required />
+              <div class="error-message" id="cityError"></div>
+            </div>
+            <div>
+              <label for="state">State <span class="optional">(required)</span></label>
+              <input type="text" id="state" name="state" required />
+              <div class="error-message" id="stateError"></div>
+            </div>
+          </div>
+
+          <!-- Postcode and Country -->
+          <div class="form-group two-col">
+            <div>
+              <label for="postcode">Postcode <span class="optional">(required)</span></label>
+              <input type="text" id="postcode" name="postcode" required />
+              <div class="error-message" id="postcodeError"></div>
+            </div>
+            <div>
+              <label for="country">Country <span class="optional">(required)</span></label>
+              <input type="text" id="country" name="country" required />
+              <div class="error-message" id="countryError"></div>
+            </div>
+          </div>
+
+          <!-- Role -->
+          <div class="form-group">
+            <label for="role">Role <span class="optional">(required)</span></label>
+            <select id="role" name="role" required>
+              <option value="">Select a role</option>
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+            </select>
+            <div class="error-message" id="roleError"></div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="password">Password <span class="optional">(required)</span></label>
+            <input type="password" id="password" name="password" required />
+            <div class="error-message" id="passwordError"></div>
+          </div>
+
+          <!-- Modal Actions -->
+          <div class="modal-actions">
+            <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
+            <button type="submit" class="btn-submit" id="submitBtn">Create User</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal" id="confirmDeleteModal">
+      <div class="modal-content modal-small">
+        <div class="modal-header">
+          <h2>Confirm Delete</h2>
+          <button class="close-btn" id="closeConfirmBtn">&times;</button>
+        </div>
+
+        <div class="modal-body">
+          <p>Are you sure you want to delete <strong id="deleteCount">0</strong> selected user(s)?</p>
+          <p class="warning-text">This action cannot be undone.</p>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" id="confirmCancelBtn">Cancel</button>
+          <button type="button" class="btn-delete-confirm" id="confirmDeleteBtn">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/admin-users.js"></script>
+  </body>
+</html>

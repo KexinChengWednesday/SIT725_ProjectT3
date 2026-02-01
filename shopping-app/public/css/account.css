@@ -173,3 +173,152 @@ body {
     grid-template-columns: 1fr;
   }
 }
+/* ===== Banner notification (error + success) ===== */
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  background: #fff;
+}
+
+.notice-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.notice-title {
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+
+.notice-message {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+/* Error = red */
+.notice-error {
+  border-color: #b12a2a;
+  color: #8b1f1f;
+}
+
+.notice-error .notice-icon {
+  border: 2px solid #b12a2a;
+  color: #b12a2a;
+}
+
+/* Success = green */
+.notice-success {
+  border-color: #1f7a3a;
+  color: #155c2b;
+}
+
+.notice-success .notice-icon {
+  border: 2px solid #1f7a3a;
+  color: #1f7a3a;
+}
+/* Error banner */
+.error-banner {
+  border: 1px solid #d9534f;
+  background: #fdf2f2;
+  color: #b52b27;
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.error-banner strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+
+/* ===== Error banner (like screenshot) ===== */
+.error-banner {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  border: 2px solid #b3261e;
+  background: #fff5f5;
+  padding: 14px 16px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+
+.error-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #b3261e;
+  color: #fff;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.error-title {
+  font-weight: 800;
+  color: #b3261e;
+  margin-bottom: 2px;
+}
+
+.error-message {
+  color: #1f1f1f;
+}
+
+/* Success banner */
+.success-banner {
+  border: 1px solid #1b5e20;
+  background: #f1fff3;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+.success-title {
+  color: #1b5e20;
+  font-weight: 700;
+}
+
+/* Field error */
+.field-error {
+  display: block;
+  margin-top: 6px;
+  color: #b3261e;
+  font-size: 12px;
+}
+.input-error {
+  border: 2px solid #b3261e !important;
+  outline: none;
+}
+
+/* Delete button */
+.account-divider {
+  margin: 16px 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+.btn.danger {
+  background: #b3261e;
+  color: #fff;
+  border: none;
+}
+.btn.danger:hover {
+  opacity: 0.95;
+}
+.full-width {
+  width: 100%;
+}
