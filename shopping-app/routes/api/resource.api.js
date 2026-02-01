@@ -6,6 +6,7 @@ const resourceController = require("../../controllers/resource.controller");
 
 // ========= Cart APIs =========
 router.get("/banner", resourceController.getBanner);
+router.get("/users", resourceController.getUsersByRole);
 router.get("/product-category", resourceController.getProductCategory);
 
 

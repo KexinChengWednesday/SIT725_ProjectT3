@@ -39,7 +39,7 @@
         <main class="account-card">
           <div class="account-topbar">
             <h2 class="account-title">My Payment Options</h2>
-            <div class="welcome">Welcome! <b><%= user.firstName %></b></div>
+            <div class="welcome">Welcome! <b><%= user.name %></b></div>
           </div>
 
           <div class="form-grid">
@@ -54,17 +54,17 @@
 
             <div class="form-row">
               <label>Name on Card</label>
-              <input value="<%= payment.name %>" />
+              <input value="<%= user.card.cardName %>" />
             </div>
 
             <div class="form-row">
               <label>Card Number (Mock)</label>
-              <input value="**** **** **** <%= payment.last4 %>" />
+              <input value="<%= user.card.cardNumber %>" />
             </div>
 
             <div class="form-row">
               <label>Expiry (MM/YY)</label>
-              <input value="<%= payment.expiry %>" />
+              <input value="<%= user.card.expiryDate %>" />
             </div>
           </div>
 

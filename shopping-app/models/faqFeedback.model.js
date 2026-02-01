@@ -10,8 +10,10 @@ const faqFeedbackSchema = new mongoose.Schema(
   
     faq_id: { type: Number },
 
-   
-    status: { type: String, enum: ["new", "reviewed"], default: "new" },
+   status: { type: String, enum: ["new", "reviewed", "resolved"], default: "new" },
+
+// soft delete flag
+isDeleted: { type: Boolean, default: false },
   },
   { collection: "faq-feedback", timestamps: true }
 );

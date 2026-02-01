@@ -1,0 +1,138 @@
+/* public/css/signup.css */
+
+body {
+  font-family: "Poppins", sans-serif;
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Fieldset Styling */
+fieldset {
+  border: none;
+  padding: 0;
+  margin-bottom: 25px;
+}
+
+legend {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0a3d4a;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgb(193, 247, 255);
+  width: 100%;
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="date"] {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: rgb(193, 247, 255);
+  box-shadow: 0 0 8px rgba(193, 247, 255, 0.4);
+  background-color: #f0feff;
+}
+
+button {
+  margin-top: 25px;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, rgb(193, 247, 255) 0%, rgb(150, 240, 255) 100%);
+  color: #0a3d4a;
+  border: 2px solid #0a3d4a;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(193, 247, 255, 0.3);
+}
+
+button:hover {
+  background: linear-gradient(135deg, rgb(150, 240, 255) 0%, rgb(100, 230, 255) 100%);
+  box-shadow: 0 6px 20px rgba(193, 247, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #721c24;
+  margin-top: 10px;
+  text-align: center;
+  padding: 12px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.success {
+  color: #155724;
+  margin-top: 10px;
+  text-align: center;
+  padding: 12px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+p {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 14px;
+  color: #666;
+}
+
+a {
+  color: rgb(193, 247, 255);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: rgb(100, 230, 255);
+  text-decoration: underline;
+}

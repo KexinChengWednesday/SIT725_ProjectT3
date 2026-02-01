@@ -39,33 +39,33 @@
         <main class="account-card">
           <div class="account-topbar">
             <h2 class="account-title">Address Book</h2>
-            <div class="welcome">Welcome! <b><%= user.firstName %></b></div>
+            <div class="welcome">Welcome! <b><%= user.name %></b></div>
           </div>
 
           <div class="form-grid">
             <div class="form-row" style="grid-column: 1 / -1">
               <label>Address Line</label>
-              <input value="<%= address.line1 %>" />
+              <input value="<%= user.address.addressLine %>" />
             </div>
 
             <div class="form-row">
               <label>City</label>
-              <input value="<%= address.city %>" />
+              <input value="<%= user.address.city %>" />
             </div>
 
             <div class="form-row">
               <label>State</label>
-              <input value="<%= address.state %>" />
+              <input value="<%= user.address.state %>" />
             </div>
 
             <div class="form-row">
               <label>Postcode</label>
-              <input value="<%= address.postcode %>" />
+              <input value="<%= user.address.postcode %>" />
             </div>
 
             <div class="form-row">
               <label>Country</label>
-              <input value="<%= address.country %>" />
+              <input value="<%= user.address.country %>" />
             </div>
           </div>
 

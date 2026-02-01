@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= title %></title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/ai.css" />
+  </head>
+
+  <body>
+    <div class="main">
+      <%- include('components/navBar') %>
+
+      <div class="page">
+      <div class="ai-wrap">
+
+  <div class="ai-hero">
+    <div class="ai-heroCard">
+      <h1 class="ai-title">AI Shopping Assistant</h1>
+      <p class="ai-subtitle">Business-style recommendations using budget + style + keywords.</p>
+      <p class="ai-note">
+        Note: If AI mode is enabled (OPENAI_API_KEY set), recommendations may be AI-generated and not part of the current catalog.
+      </p>
+    </div>
+
+    <div class="ai-sideCard">
+      <div class="ai-sideTitle">How to use</div>
+      <ul class="ai-tips">
+        <li class="ai-tip">Pick keyword chips to quickly build your query.</li>
+        <li class="ai-tip">Add a budget to filter results (local mode) or guide AI (AI mode).</li>
+        <li class="ai-tip">Try styles like “minimalist”, “premium”, “cute”, “sporty”.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ai-main">
+    <div class="ai-card">
+      <div class="ai-cardHeader">
+        <div>
+          <div class="ai-cardTitle">Preference</div>
+          <div class="ai-cardSub">Set budget & style, then ask AI</div>
+        </div>
+      </div>
+
+      <div class="ai-chips">
+        <button class="ai-chip" data-kw="gift">Gift</button>
+        <button class="ai-chip" data-kw="minimalist">Minimalist</button>
+        <button class="ai-chip" data-kw="budget-friendly">Budget-friendly</button>
+        <button class="ai-chip" data-kw="premium">Premium</button>
+        <button class="ai-chip" data-kw="home">Home</button>
+        <button class="ai-chip" data-kw="office">Office</button>
+      </div>
+
+      <div class="ai-form">
+        <div class="ai-field">
+          <label>Budget (AUD)</label>
+          <input id="ai-budget" type="number" placeholder="e.g. 50" />
+        </div>
+
+        <div class="ai-field">
+          <label>Style</label>
+          <input id="ai-style" type="text" placeholder="e.g. minimalist / sporty / cute" />
+        </div>
+
+        <div class="ai-field" style="grid-column: 1 / -1;">
+          <label>Keywords (comma separated)</label>
+          <input id="ai-keywords" type="text" placeholder="e.g. gift, home, warm" />
+        </div>
+
+        <button id="ai-send" class="ai-send">Ask AI</button>
+      </div>
+    </div>
+
+    <div class="ai-card">
+      <div class="ai-cardHeader">
+        <div>
+          <div class="ai-cardTitle">Conversation</div>
+          <div class="ai-cardSub">Recommendations will appear below</div>
+        </div>
+      </div>
+
+      <div class="ai-chat">
+        <div class="ai-msg ai-msg--system">
+          Hi! Click a keyword chip or type your budget/style to get recommendations.
+        </div>
+        <div id="ai-output"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+      </div>
+
+      <%- include('components/footer') %>
+      <script src="/js/ai.js"></script>
+    </div>
+  </body>
+</html>
