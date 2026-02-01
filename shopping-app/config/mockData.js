@@ -330,17 +330,12 @@ const CARTS = [
       {
         product_id: 1,
         quantity: 1,
-        price: 299.99,
-        subtotal: 299.99,
       },
       {
         product_id: 4,
         quantity: 2,
-        price: 499.99,
-        subtotal: 999.98,
       },
     ],
-    total: 1299.97,
     status: "active",
   },
   {
@@ -350,17 +345,12 @@ const CARTS = [
       {
         product_id: 2,
         quantity: 1,
-        price: 599.99,
-        subtotal: 599.99,
       },
       {
         product_id: 5,
         quantity: 2,
-        price: 89.99,
-        subtotal: 179.98,
       },
     ],
-    total: 779.97,
     status: "active",
   },
   {
@@ -370,17 +360,12 @@ const CARTS = [
       {
         product_id: 6,
         quantity: 1,
-        price: 399.99,
-        subtotal: 399.99,
       },
       {
         product_id: 3,
         quantity: 1,
-        price: 159.99,
-        subtotal: 159.99,
       },
     ],
-    total: 559.98,
     status: "active",
   },
   {
@@ -390,18 +375,14 @@ const CARTS = [
       {
         product_id: 1,
         quantity: 3,
-        price: 299.99,
-        subtotal: 899.97,
       },
     ],
-    total: 899.97,
     status: "active",
   },
   {
     cart_id: "cart_005",
     user_id: "user_005",
     items: [],
-    total: 0,
     status: "active",
   },
   {
@@ -411,17 +392,12 @@ const CARTS = [
       {
         product_id: 5,
         quantity: 1,
-        price: 89.99,
-        subtotal: 89.99,
       },
       {
         product_id: 3,
         quantity: 2,
-        price: 159.99,
-        subtotal: 319.98,
       },
     ],
-    total: 409.97,
     status: "active",
   },
 ];

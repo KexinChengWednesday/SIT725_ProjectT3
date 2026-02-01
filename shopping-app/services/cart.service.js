@@ -1,25 +1,26 @@
-// services/cart.service.js
-const { mockProducts } = require("../config/mockData");
+const Cart = require("../models/cart.model");
+const User = require("../models/user.model");
+const Product = require("../models/product.model");
 
-// use in-memory cart（mock）
-const cartState = {
-  items: [], // { productId, name, price, image, category, quantity }
-  totalPrice: 0,
-};
-
+// ---------- helpers ----------
 function moneyRound(n) {
   return Math.round(Number(n || 0) * 100) / 100;
 }
 
-function recalcTotal() {
-  cartState.totalPrice = moneyRound(
-    cartState.items.reduce((sum, it) => sum + it.price * it.quantity, 0)
-  );
+function ensureObjectIdString(id) {
+  if (!id || typeof id !== "string") return null;
+  return id;
 }
 
-function findProduct(productId) {
+function makeCartId(userObjectId) {
+  // deterministic, no extra deps
+  return `cart_${String(userObjectId)}`;
+}
+
+async function findProduct(productId) {
   const id = Number(productId);
-  return mockProducts.find((p) => Number(p.id) === id);
+  if (!Number.isFinite(id)) return null;
+  return Product.findOne({ product_id: id }).lean();
 }
 
 function getStock(product) {
@@ -28,19 +29,113 @@ function getStock(product) {
   return Infinity;
 }
 
-function getCart() {
-  recalcTotal();
-  return cartState;
+/**
+ * Find user's active cart. If user has no cart_id OR cart not found, create one and write back user.cart_id.
+ * Return Cart mongoose document (not lean) so we can modify + save.
+ */
+async function getOrCreateCartBySessionUserId(sessionUserId) {
+  const uid = ensureObjectIdString(sessionUserId);
+  if (!uid) {
+    const err = new Error("Unauthorized");
+    err.status = 401;
+    throw err;
+  }
+
+  const user = await User.findById(uid);
+  if (!user) {
+    const err = new Error("User not found");
+    err.status = 404;
+    throw err;
+  }
+
+  // Try by user.cart_id (team design)
+  if (user.cart_id) {
+    const existing = await Cart.findOne({
+      cart_id: user.cart_id,
+      status: "active",
+    });
+    if (existing) return existing;
+  }
+
+  // Create new cart
+  const cartId = user.cart_id || makeCartId(user._id);
+
+  const created = await Cart.create({
+    cart_id: cartId,
+    user_id: user._id, // keep consistent with cart.model user_id type
+    items: [],
+    status: "active",
+  });
+
+  // write back cart_id to user
+  user.cart_id = cartId;
+  await user.save();
+
+  return created;
 }
 
-function clearCart(){
-  cartState.items = [];
-  cartState.totalPrice = 0;
-  return cartState;
+/**
+ * Convert cart document (product_id + quantity) to frontend view:
+ * { items: [{productId,name,price,image,categoryId,quantity}], totalPrice }
+ */
+async function toCartView(cartDoc) {
+  const rawItems = Array.isArray(cartDoc.items) ? cartDoc.items : [];
+  const ids = rawItems
+    .map((it) => Number(it.product_id))
+    .filter((n) => Number.isFinite(n));
+
+  if (ids.length === 0) {
+    return { items: [], totalPrice: 0 };
+  }
+
+  const products = await Product.find({ product_id: { $in: ids } }).lean();
+  const map = new Map(products.map((p) => [Number(p.product_id), p]));
+
+  const items = [];
+  for (const it of rawItems) {
+    const pid = Number(it.product_id);
+    const qty = Number(it.quantity);
+
+    const p = map.get(pid);
+    if (!p) continue;
+
+    const priceNumber = Number(p.price?.toString?.() ?? p.price);
+
+    items.push({
+      productId: pid,
+      name: p.name,
+      price: priceNumber,
+      image: p.image,
+      categoryId: p.categoryId,
+      quantity: qty,
+    });
+  }
+
+  const totalPrice = moneyRound(
+    items.reduce((sum, it) => sum + it.price * it.quantity, 0)
+  );
+
+  return { items, totalPrice };
 }
 
-function addItem(productId, qty = 1) {
-  const product = findProduct(productId);
+// ---------- public APIs ----------
+
+async function getCart(sessionUserId) {
+  const cartDoc = await getOrCreateCartBySessionUserId(sessionUserId);
+  return toCartView(cartDoc);
+}
+
+async function clearCart(sessionUserId) {
+  const cartDoc = await getOrCreateCartBySessionUserId(sessionUserId);
+  cartDoc.items = [];
+  await cartDoc.save();
+  return toCartView(cartDoc);
+}
+
+async function addItem(sessionUserId, productId, qty = 1) {
+  const cartDoc = await getOrCreateCartBySessionUserId(sessionUserId);
+
+  const product = await findProduct(productId);
   if (!product) {
     const err = new Error("Product not found");
     err.status = 404;
@@ -54,8 +149,10 @@ function addItem(productId, qty = 1) {
     throw err;
   }
 
-  const existing = cartState.items.find((it) => Number(it.productId) === Number(productId));
-  const currentQty = existing ? existing.quantity : 0;
+  const pid = Number(product.product_id);
+
+  const existing = cartDoc.items.find((it) => Number(it.product_id) === pid);
+  const currentQty = existing ? Number(existing.quantity) : 0;
   const desiredQty = currentQty + addQty;
 
   const stock = getStock(product);
@@ -65,25 +162,17 @@ function addItem(productId, qty = 1) {
     throw err;
   }
 
-  if (existing) {
-    existing.quantity = desiredQty;
-  } else {
-    cartState.items.push({
-      productId: Number(product.id),
-      name: product.name,
-      price: Number(product.price),
-      image: product.image,
-      category: product.category,
-      quantity: addQty,
-    });
-  }
+  if (existing) existing.quantity = desiredQty;
+  else cartDoc.items.push({ product_id: pid, quantity: addQty });
 
-  recalcTotal();
-  return cartState;
+  await cartDoc.save();
+  return toCartView(cartDoc);
 }
 
-function updateQuantity(productId, qty) {
-  const product = findProduct(productId);
+async function updateQuantity(sessionUserId, productId, qty) {
+  const cartDoc = await getOrCreateCartBySessionUserId(sessionUserId);
+
+  const product = await findProduct(productId);
   if (!product) {
     const err = new Error("Product not found");
     err.status = 404;
@@ -97,8 +186,10 @@ function updateQuantity(productId, qty) {
     throw err;
   }
 
-  // qty <= 0 delete item
-  if (newQty <= 0) return removeItem(productId);
+  const pid = Number(product.product_id);
+
+  // qty <= 0 -> remove
+  if (newQty <= 0) return removeItem(sessionUserId, pid);
 
   const stock = getStock(product);
   if (newQty > stock) {
@@ -107,7 +198,7 @@ function updateQuantity(productId, qty) {
     throw err;
   }
 
-  const existing = cartState.items.find((it) => Number(it.productId) === Number(productId));
+  const existing = cartDoc.items.find((it) => Number(it.product_id) === pid);
   if (!existing) {
     const err = new Error("Item not in cart");
     err.status = 404;
@@ -115,22 +206,27 @@ function updateQuantity(productId, qty) {
   }
 
   existing.quantity = newQty;
-  recalcTotal();
-  return cartState;
+
+  await cartDoc.save();
+  return toCartView(cartDoc);
 }
 
-function removeItem(productId) {
-  const before = cartState.items.length;
-  cartState.items = cartState.items.filter((it) => Number(it.productId) !== Number(productId));
+async function removeItem(sessionUserId, productId) {
+  const cartDoc = await getOrCreateCartBySessionUserId(sessionUserId);
 
-  if (cartState.items.length === before) {
+  const pid = Number(productId);
+  const before = cartDoc.items.length;
+
+  cartDoc.items = cartDoc.items.filter((it) => Number(it.product_id) !== pid);
+
+  if (cartDoc.items.length === before) {
     const err = new Error("Item not in cart");
     err.status = 404;
     throw err;
   }
 
-  recalcTotal();
-  return cartState;
+  await cartDoc.save();
+  return toCartView(cartDoc);
 }
 
 module.exports = {
