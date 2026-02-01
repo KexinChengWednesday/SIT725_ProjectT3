@@ -6,10 +6,19 @@
     </a>
 
     <div class="search-container">
-  <input type="text" class="search-bar" placeholder="Search products..." />
-  <button class="search-btn"><img src="/icons/search.png" width="20" height="20" alt="search"/></button>
-</div>
-
+      <input 
+        type="text" 
+        class="search-bar" 
+        id="searchBar"
+        placeholder="Search products..." 
+      />
+      <button class="search-btn">
+        <img src="/icons/search.png" width="20" height="20" alt="search"/>
+      </button>
+      
+      <!-- Search Results Dropdown -->
+      <div class="search-results" id="searchResults"></div>
+    </div>
 
     <div class="user-section">
       <a href="/cart" class="cart-link">
