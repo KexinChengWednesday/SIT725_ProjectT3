@@ -15,9 +15,5 @@ router.use("/", pageRoutes);
 
 // API routes (/api/faq/*, /api/products/*, /api/blog/*)
 router.use("/api", apiRoutes);
-router.use("/api/cart", cartApi);
-
-// homepage render//
-
 
 module.exports = router;

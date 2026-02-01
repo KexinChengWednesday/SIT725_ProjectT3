@@ -9,6 +9,7 @@ const checkoutApi = require("./checkout.api");
 const resourceApi = require("./resource.api");
 const productApi = require("./product.api");
 const authApi = require("./auth/auth.api");
+const accountApi = require("./account.api");
 
 // ========= API Route Mounting =========
 
@@ -26,6 +27,9 @@ router.use("/checkout", checkoutApi);
 
 // Resource APIs
 router.use("/resource", resourceApi);
+
+// Account APIs
+router.use("/account", accountApi);
 
 //Auth APIs
 router.use("/auth", authApi);

@@ -1,11 +1,3 @@
-function authMiddleware(req, res, next) {
-  // general auth check or public route handler
-  if (req.session?.user) {
-    return next();
-  }
-  res.redirect("/login");
-}
-
 function requireUser(req, res, next) {
   if (req.session?.user) {
     return next(); // User is logged in
@@ -31,7 +23,6 @@ function requireAdmin(req, res, next) {
 }
 
 module.exports = {
-  authMiddleware,
   requireUser,
   requireAdmin,
 };

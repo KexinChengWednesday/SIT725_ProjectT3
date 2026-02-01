@@ -29,7 +29,9 @@ async function verifyLogin(req, res) {
       id: user.id,
       name: user.name,
       email: user.email,
-      role: user.role
+      role: user.role,
+      address: user.address,
+      card: user.cardInfo
     };
 
     console.log('Login successful. Session user:', req.session.user); // Log session
