@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const accountController = require("../controllers/account.controller");
+const adminFeedbackController = require("../controllers/adminFeedback.controller");
 
-const { requireUser, requireAdmin } = require('../middleware/auth');
+const { requireUser, requireAdmin, checkAuth } = require('../middleware/auth');
 // ========= Pages =========
 
 // Default base route will be redirected to homepage
@@ -16,8 +17,8 @@ router.get("/faq", (req, res) => {
   res.render("faq", { title: "FAQs", user: req.session?.user || null  });
 });
 
-// FAQ page
-router.get("/login", (req, res) => {
+// Login page
+router.get("/login", checkAuth, (req, res) => {
   res.render("login");
 });
 
@@ -53,10 +54,10 @@ router.get("/confirmation", requireUser, (req, res) => {
 // product detail page
 router.get("/product/:id", (req, res) => res.render("product", {user: req.session?.user || null  }));
 
-// admin page
-router.get("/admin",requireAdmin, (req, res) => {
-  res.render("admin");
-});
+// admin pages
+router.get("/admin/feedbacks", requireAdmin, adminFeedbackController.renderFeedbacks);
+router.get("/admin/dashboard", requireAdmin, (req, res) => res.render("admin/dashboard"));
+router.get("/admin/users", requireAdmin, (req, res) => res.render("admin/users"));
 
 // sign up page
 router.get("/sign-up", (req, res) => {

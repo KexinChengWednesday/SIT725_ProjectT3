@@ -9,6 +9,11 @@ form.addEventListener('submit', function(e) {
   const email = document.getElementById('email').value.trim();
   const phone = document.getElementById('phone').value.trim();
   const dob = document.getElementById('dob').value.trim();
+  const addressLine = document.getElementById('addressLine').value.trim();
+  const city = document.getElementById('city').value.trim();
+  const state = document.getElementById('state').value.trim();
+  const postcode = document.getElementById('postcode').value.trim();
+  const country = document.getElementById('country').value.trim();
   const password = document.getElementById('password').value;
   const confirmPassword = document.getElementById('confirmPassword').value;
 
@@ -32,8 +37,14 @@ form.addEventListener('submit', function(e) {
   }
 
   // Validate required fields
-  if (!name || !dob) {
+  if (!name || !dob || !addressLine || !city || !state || !postcode || !country) {
     alert('Please fill in all required fields!');
+    return;
+  }
+
+  // Validate postcode format (basic)
+  if (!/^\d{4,}$/.test(postcode.replace(/\s/g, ''))) {
+    alert('Please enter a valid postcode!');
     return;
   }
 
@@ -43,6 +54,11 @@ form.addEventListener('submit', function(e) {
     email,
     phone: phone || null,
     dob,
+    addressLine,
+    city,
+    state,
+    postcode,
+    country,
     password,
   };
 

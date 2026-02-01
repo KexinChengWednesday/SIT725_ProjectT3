@@ -22,7 +22,18 @@ function requireAdmin(req, res, next) {
   });
 }
 
+function checkAuth(req, res, next) {
+  if (req.session.user && req.session.user.role ==="admin") {
+    return res.redirect("/admin/dashboard");
+  }
+  if (req.session.user && req.session.user.role ==="user") {
+    return res.redirect("/homepage");
+  }
+  next();
+};
+
 module.exports = {
   requireUser,
   requireAdmin,
+  checkAuth
 };

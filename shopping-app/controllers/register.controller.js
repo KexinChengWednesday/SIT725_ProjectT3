@@ -1,7 +1,7 @@
-const userService = require('../services/user.service');
+const userService = require("../services/user.service");
 
 // Create a new user
-async function createUser (req, res) {
+async function createUser(req, res) {
   try {
     const userData = req.body;
 
@@ -22,8 +22,6 @@ async function createUser (req, res) {
       data: newUser,
     });
   } catch (error) {
-    console.error("Error creating user:", error);
-
     // Handle duplicate email error
     if (error.code === 11000) {
       return res.status(409).json({
@@ -38,7 +36,7 @@ async function createUser (req, res) {
       error: error.message,
     });
   }
-};
+}
 
 module.exports = {
   createUser,

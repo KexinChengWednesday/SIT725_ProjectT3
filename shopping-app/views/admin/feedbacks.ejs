@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin - FAQ Feedback</title>
+
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/admin-feedback.css">
+</head>
+
+<body>
+  <% const BASE = "/admin"; /* 如果你挂载的是 /faq/admin，就改成 "/faq/admin" */ %>
+
+  <div class="admin-container">
+
+    <div class="admin-header">
+      <div>
+        <h1 class="admin-title">Admin: FAQ Feedback Management</h1>
+        <p class="admin-subtitle">
+          Protected admin view using an admin key. Demonstrates advanced CRUD:
+          filter/search (Read), status lifecycle (Update), and soft delete (Delete).
+        </p>
+      </div>
+      <div class="admin-pill"><%= BASE %>/feedbacks?key=ADMIN_KEY</div>
+    </div>
+
+    <div class="admin-card">
+      <h2>Filter & Search</h2>
+
+      <form method="GET" action="<%= BASE %>/feedbacks">
+        <input type="hidden" name="key" value="<%= key %>">
+
+        <div class="admin-filters">
+          <div class="admin-field">
+            <label>Status</label>
+            <select name="status">
+              <option value="" <%= status === "" ? "selected" : "" %>>All</option>
+              <option value="new" <%= status === "new" ? "selected" : "" %>>New</option>
+              <option value="reviewed" <%= status === "reviewed" ? "selected" : "" %>>Reviewed</option>
+              <option value="resolved" <%= status === "resolved" ? "selected" : "" %>>Resolved</option>
+            </select>
+          </div>
+
+          <div class="admin-field">
+            <label>Keyword</label>
+            <input type="text" name="q" value="<%= q %>" placeholder="Search message, name or email">
+          </div>
+
+          <div class="admin-actions">
+            <button type="submit" class="btn">Apply</button>
+            <a class="btn btn-ghost" href="<%= BASE %>/feedbacks?key=<%= encodeURIComponent(key) %>">Reset</a>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="admin-card">
+      <h2>Feedback Records</h2>
+
+      <% if (!items || items.length === 0) { %>
+        <div class="admin-empty">No feedback records found.</div>
+      <% } else { %>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Message</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% for (let i = 0; i < items.length; i++) { %>
+                <% const item = items[i]; %>
+                <% const st = item.status || "new"; %>
+
+                <tr>
+                  <td>
+                    <div class="feedback-message"><%= item.message %></div>
+                    <div class="feedback-meta">ID: <%= item._id %></div>
+                  </td>
+
+                  <td><%= item.name || "-" %></td>
+                  <td><%= item.email || "-" %></td>
+
+                  <td>
+                    <span class="status-badge status-<%= st %>">
+                      <span class="status-dot"></span>
+                      <%= st %>
+                    </span>
+                  </td>
+
+                  <td>
+                    <div class="admin-actions">
+
+                      <form method="POST"
+                            action="<%= BASE %>/feedbacks/<%= item._id %>/status?key=<%= encodeURIComponent(key) %>">
+                        <select name="status" class="select-sm">
+                          <option value="new" <%= st === "new" ? "selected" : "" %>>new</option>
+                          <option value="reviewed" <%= st === "reviewed" ? "selected" : "" %>>reviewed</option>
+                          <option value="resolved" <%= st === "resolved" ? "selected" : "" %>>resolved</option>
+                        </select>
+                        <button type="submit" class="btn btn-sm">Save</button>
+                      </form>
+
+                      <form method="POST"
+                            action="<%= BASE %>/feedbacks/<%= item._id %>/delete?key=<%= encodeURIComponent(key) %>">
+                        <button type="submit"
+                                class="btn btn-sm btn-danger"
+                                onclick="return confirm('Soft delete this feedback?')">
+                          Delete
+                        </button>
+                      </form>
+
+                    </div>
+                  </td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+      <% } %>
+    </div>
+
+  </div>
+</body>
+</html>

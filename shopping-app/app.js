@@ -4,6 +4,7 @@ const session = require('express-session');
 const connectDB = require("./config/db");
 const path = require("path");
 const app = express();
+
 // static files (css/js/icons/images)
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
   res.locals.user = req.session?.user || null;
   next();
 });
+
 // routes
 const router = require("./routes");
 app.use("/", router);

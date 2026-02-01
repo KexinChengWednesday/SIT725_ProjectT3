@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-top">
+        <div>
+          <h1>Admin Dashboard</h1>
+          <p>Manage your application</p>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+      </div>
+    </div>
+
+    <div class="cards-wrapper">
+      <!-- Dashboard Card -->
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h2>Users</h2>
+        <p>Welcome to the admin dashboard. Manage your application settings and view overall statistics here.</p>
+        <a href="/admin/users" class="btn-link">View Users</a>
+      </div>
+
+      <!-- Feedbacks Card -->
+      <div class="card">
+        <div class="card-icon">💬</div>
+        <h2>Feedbacks</h2>
+        <p>View and manage all user feedback and reviews submitted to your application.</p>
+        <a href="/admin/feedbacks" class="btn-link">View Feedbacks</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Modal -->
+  <div class="logout-modal hidden" id="logoutModal">
+    <div class="modal-content">
+      <h3>Confirm Logout</h3>
+      <p>Are you sure you want to logout?</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="cancelBtn">Cancel</button>
+        <button class="btn-confirm" id="confirmLogoutBtn">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

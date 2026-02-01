@@ -1,3 +1,55 @@
+document.addEventListener('DOMContentLoaded', function() {
+  // ===== USER PROFILE DROPDOWN =====
+  const userProfile = document.getElementById('userProfile');
+  const dropdownMenu = document.getElementById('dropdownMenu');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  // Toggle dropdown when clicking on profile
+  if (userProfile) {
+    userProfile.addEventListener('click', function(e) {
+      e.stopPropagation();
+      dropdownMenu.classList.toggle('active');
+    });
+  }
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(e) {
+    if (dropdownMenu && !e.target.closest('.user-profile-wrapper')) {
+      dropdownMenu.classList.remove('active');
+    }
+  });
+
+  // Handle logout
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      
+      try {
+        const response = await fetch('/api/auth/logout', {
+          method: 'GET',
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          console.log(data.message);
+          window.location.href = '/'; // Redirect to homepage
+        } else {
+          console.error(data.message);
+          alert('Error logging out');
+        }
+      } catch (err) {
+        console.error('Logout error:', err);
+        alert('Error logging out');
+      }
+    });
+  }
+
+  // ===== CART BADGE =====
+  refreshCartBadge();
+});
+
+// Refresh cart badge function
 async function refreshCartBadge() {
   const cartBadge = document.getElementById("cartBadge");
   if (!cartBadge) return;
@@ -28,11 +80,6 @@ async function refreshCartBadge() {
     cartBadge.style.display = "none";
   }
 }
-
-// Initial load
-document.addEventListener("DOMContentLoaded", () => {
-  refreshCartBadge();
-});
 
 // Listen for add to cart button clicks
 document.addEventListener("click", (e) => {
