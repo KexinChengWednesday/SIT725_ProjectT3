@@ -47,39 +47,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ===== CART BADGE =====
-  checkSessionAndRefreshCart();
-
+  refreshCartBadge();
   // ===== SEARCH BAR =====
   initializeSearch();
 });
-
-// Check if user is logged in
-async function checkSessionAndRefreshCart() {
-  const cartBadge = document.getElementById("cartBadge");
-  if (!cartBadge) return;
-
-  try {
-    const sessionRes = await fetch("/api/session", {
-      method: "GET",
-      cache: "no-store",
-    });
-
-    const sessionData = await sessionRes.json();
-
-    if (!sessionRes.ok || !sessionData.isLoggedIn) {
-      console.log("User not logged in");
-      cartBadge.style.display = "none";
-      return;
-    }
-
-    console.log("User logged in, fetching cart...");
-    await refreshCartBadge();
-  } catch (err) {
-    console.error("Session check error:", err);
-    cartBadge.style.display = "none";
-  }
-}
 
 // Refresh cart badge function
 async function refreshCartBadge() {
@@ -132,7 +103,7 @@ document.addEventListener("click", (e) => {
 
   if (!homeBtn && !isProductAddBtn) return;
 
-  setTimeout(refreshCartBadge, 300);
+  setTimeout(refreshCartBadge, 500);
 });
 
 // ===== SEARCH FUNCTIONALITY =====
@@ -234,7 +205,7 @@ function displaySearchResults(results, query) {
       (product) => `
     <a href="/product/${product.product_id}" class="search-result-item">
       <div class="result-image">
-        <img src="${product.image || '/images/placeholder.png'}" alt="${product.name}" />
+        <img src="${product.image || "/images/placeholder.png"}" alt="${product.name}" />
       </div>
       <div class="result-info">
         <div class="result-name">${highlightMatch(product.name, query)}</div>
@@ -242,7 +213,7 @@ function displaySearchResults(results, query) {
         <div class="result-price">$${(product.price.$numberDecimal ? parseFloat(product.price.$numberDecimal.toString()) : 0).toFixed(2)}</div>
       </div>
     </a>
-  `
+  `,
     )
     .join("");
 
