@@ -25,6 +25,8 @@ If no OpenAI API key is provided:
 
 From the `shopping-app` directory, run:
 
+npm run seeddb
+
 npm start
 
 Then open your browser and access:
